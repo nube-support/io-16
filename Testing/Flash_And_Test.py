@@ -7,7 +7,7 @@ from datetime import datetime
 
 FULL_TEST_SUITE = ['Dips_test', 'Modbus_test', 'lora_test', 'UI/IO calib_test', 'UI_raw_test', 'UO_0_10V_test', 'V_in_out_test', 'resistance_test', 'digital_test', 'pulse_test']
 
-with open('configs/io16_test.json', 'r') as config_file:
+with open('configs/io16_prod.json', 'r') as config_file:
     config = json.load(config_file)
 
 products.init_db_path(config["db_path"])
@@ -74,7 +74,8 @@ while True:
             # If both values are found, break out of the loop
             if unique_id is not None and firmware is not None:
                 break
-        print(f'ID: {unique_id}')
+
+        print(colored(f'ID: {unique_id}', 'white', 'on_blue'))
 
         last_line = lines[-1] if lines else ""
         full_test_suit_passed = all(test_case in last_line for test_case in FULL_TEST_SUITE)
@@ -112,9 +113,9 @@ while True:
             Product_Detail_Labels.create_image_without_barcode('/home/testbench/io16-testing/Testing/images/text_label.png', lines)
 
             if print_flag != '--no-print':
-                cmd = 'lpr -P PT-P900W -o PageSize=Custom.12x48mm -o Resolution=360dpi -o CutLabel=0 -o ExtraMargin=0mm -o number-up=1 -o orientation-requested=4 -#3 /home/testbench/io16-testing/Testing/images/product_label.png'
+                cmd = 'lpr -P PT-P900W -o PageSize=Custom.12x46mm -o Resolution=360dpi -o CutLabel=0 -o ExtraMargin=0mm -o number-up=1 -o orientation-requested=4 -#3 /home/testbench/io16-testing/Testing/images/product_label.png'
                 subprocess.check_output(cmd, shell=True, text=True)
-                cmd = 'lpr -P PT-P900W -o PageSize=Custom.12x48mm -o Resolution=360dpi -o CutLabel=0 -o ExtraMargin=0mm -o number-up=1 -o orientation-requested=4 -#1 /home/testbench/io16-testing/Testing/images/text_label.png'
+                cmd = 'lpr -P PT-P900W -o PageSize=Custom.12x17mm -o Resolution=360dpi -o CutLabel=0 -o ExtraMargin=0mm -o number-up=1 -o orientation-requested=4 -#1 /home/testbench/io16-testing/Testing/images/text_label.png'
                 subprocess.check_output(cmd, shell=True, text=True)            
             #Copy test file into the test folder with correct name
 
@@ -136,14 +137,12 @@ while True:
             barcode_file_count = 0
             # Count files that start with the specified barcode
             barcode_file_count = sum(1 for file in local_files if file.startswith(barcode))
-            print(barcode)
-            print(barcode_file_count)
+
             if(barcode_file_count == 0):
                 new_filename_path = f"{barcode}-#1.txt"
             else:
                 new_filename_path = f"{barcode}-#{barcode_file_count+1}.txt"
 
-            print(new_filename_path)
             # Copy the contents of the old file to the new file with added header lines
             with open('/home/testbench/io16-testing/Testing/output.txt', 'r') as old_file, open(os.path.join(local_test_path, new_filename_path), 'w') as new_file:
                 # Write header lines at the beginning of the new file

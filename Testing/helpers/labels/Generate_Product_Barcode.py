@@ -8,7 +8,7 @@ from PIL import Image
 def generate_barcode(data):
     barcode_type = barcode.get_barcode_class('code128')  # Using Code 39 format
     bc = barcode_type(data, writer=ImageWriter())
-    options = {"module_height": 10, "font_size": 10, "text_distance": 4, "quiet_zone": 0.9, "module_width": 0.2}
+    options = {"module_height": 10, "font_size": 10, "text_distance": 4, "quiet_zone": 0.9, "module_width": 0.18}
 
     label = bc.render(options)
 
@@ -22,7 +22,7 @@ def generate_barcode(data):
 
     # Convert mm to pixels
     dpi = 360
-    width_px = int((32 / 25.4) * dpi)
+    width_px = int((30.3 / 25.4) * dpi)
     height_px = int((12 / 25.4) * dpi)
 
     # Create blank image

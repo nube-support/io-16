@@ -604,7 +604,7 @@ def flash(filename):
     try:
         subprocess.run(cmd, shell=True, check=True, stdout=None, stderr=None)
     except Exception as e:
-        print(f"{Fore.WHIRE}{Back.RED}Flash command failed with error: {e}{Style.RESET_ALL}")
+        print(f"{Fore.WHITE}{Back.RED}Flash command failed with error: {e}{Style.RESET_ALL}")
 
         return False
     return True
@@ -619,14 +619,16 @@ def flash_device():
         logger.info(f"{Fore.BLACK}{Back.YELLOW}Set controller into boot mode{Style.RESET_ALL}")
 
         if get_input():
+            logger.info(f"{Fore.BLACK}{Back.YELLOW}Upload Skipped{Style.RESET_ALL}")
+
             break
         passed = flash('/home/pi/Testing/R-IO-16-Modbus_v4.0.0_F411RE.bin')
         if not passed:
             logger.info(f"{Fore.WHITE}{Back.RED}\u2717 Upload failed{Style.RESET_ALL}")
 
-        logger.info(f"{Fore.WHITE}{Back.RED}Set controller into boot mode{Style.RESET_ALL}")
-
-    logger.info(f"{Fore.WHITE}{Back.RED}\u2717 Upload Skipped{Style.RESET_ALL}")
+        logger.info(f"{Fore.BLACK}{Back.YELLOW}Set controller into boot mode{Style.RESET_ALL}")
+        if passed:
+            logger.info(f"{Fore.WHITE}{Back.GREEN}\u2713 Upload Complete{Style.RESET_ALL}")
 
 
 def run_test_script(script, args=None):

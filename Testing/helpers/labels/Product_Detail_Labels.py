@@ -8,7 +8,7 @@ def mm_px(mm):
 
 def create_image_with_text(output_file, lines):
     dpi = 360
-    width_mm, height_mm = 50, 12
+    width_mm, height_mm = 46, 12
     # width_px = mm_px(34)
     # height_px = mm_px(56)
     width_px = int((width_mm * dpi) / 25.4)
@@ -33,8 +33,7 @@ def create_image_with_text(output_file, lines):
     line_height = font_size  # Use font size as line height
 
     for i, line in enumerate(lines):
-        offset = int(size / 2)
-        x = 470
+        x = 425
         y = i * line_height -2
 
 

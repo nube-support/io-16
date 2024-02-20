@@ -95,7 +95,7 @@ def current_technician_and_info(saved_technician=None, saved_hardware_version=No
 
     # Load data from JSON
     if(saved_data == None):
-        saved_data = load_data_from_json('/home/testbench/rubix-compute-man/manufacturing_info.json')
+        saved_data = load_data_from_json('/home/testbench/io16-testing/Testing/manufacturing_info.json')
 
     if saved_data and not tested_already:
         timestamp = saved_data.get('timestamp', None)
@@ -113,7 +113,7 @@ def current_technician_and_info(saved_technician=None, saved_hardware_version=No
                 #saved_data['timestamp'] = current_time.strftime('%Y-%m-%d %H:%M:%S')
 
                 # Save the updated data back to the JSON file
-                save_data_to_json('/home/testbench/microedge/manufacturing_info.json', saved_data)
+                save_data_to_json('/home/testbench/io16-testing/Testing/manufacturing_info.json', saved_data)
     if(technician != ''):
         print(colored(
             f"Tester: {technician}\nHardware Version: {hardware_version}\nVariant: {variant}\nBatch: {batch_id}\nWork Order: {manufacturing_order}\nTest Date: {test_date}\n",
